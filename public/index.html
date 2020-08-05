@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>jconvert</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <table>
+      <tbody>
+        <tr>
+          <td>mode:</td>
+          <td colspan="2">
+            <select name="mode" id="mode">
+              <option value="save">Load filter from images</option>
+              <option value="apply">Apply filter to image</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>input file:</td>
+          <td><input type="text" name="ipath" id="ipath" /></td>
+          <td><button onclick='browse(true, "ipath")'>browse</button></td>
+        </tr>
+        <tr>
+          <td>output file:</td>
+          <td><input type="text" name="opath" id="opath" /></td>
+          <td>
+            <button onclick='browse(getmode() === "save", "opath")'>
+              browse
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>transform file:</td>
+          <td><input type="text" name="tpath" id="tpath" /></td>
+          <td>
+            <button onclick='browse(getmode() === "apply","tpath")'>
+              browse
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="apply"><button>apply</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script>
+    const { browse, getmode } = require("./index.js");
+  </script>
+</html>

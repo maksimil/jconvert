@@ -1,0 +1,15 @@
+* {
+  margin: 0px;
+}
+
+td {
+  text-align: right;
+}
+
+td.apply {
+  text-align: center;
+}
+
+select {
+  width: 100%;
+}
