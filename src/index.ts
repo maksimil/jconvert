@@ -1,5 +1,4 @@
-import { remote } from "electron";
-// import filt from "./imagefilter";
+import { remote, ipcRenderer } from "electron";
 
 const dialog = remote.dialog;
 
@@ -27,4 +26,12 @@ export const browse = async (open: boolean, id: string) => {
   nil.value = path;
 };
 
-export const savefilter = (inname: string, outname: string) => {};
+const datainputs = ["ipath", "opath", "tpath"].map(
+  (e) => <HTMLInputElement>document.getElementById(e)
+);
+
+export const apply = () => {
+  const [ipath, opath, tpath] = datainputs.map((e) => e.value);
+
+  ipcRenderer.send("paths-config", { ipath, opath, tpath, mode: getmode() });
+};
