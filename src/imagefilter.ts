@@ -1,0 +1,80 @@
+import * as net from "./network";
+import * as fs from "fs";
+const pixels = require("image-pixels");
+const ioutput = require("image-output");
+
+export const filterdata = (filter: net.Filter, data: Uint8Array) => {
+  let output = data;
+  const length = output.length;
+  for (let i = 0; i < length / 4; i++) {
+    [output[4 * i], output[4 * i + 1], output[4 * i + 2]] = net.apply(filter, [
+      data[4 * i],
+      data[4 * i + 1],
+      data[4 * i + 2],
+    ]);
+  }
+  return output;
+};
+
+export const filterimg = async (
+  filter: net.Filter,
+  inputpath: string,
+  outputpath: string
+) => {
+  const idata = await pixels(inputpath);
+
+  const ndata = filterdata(filter, idata.data);
+
+  ioutput(
+    {
+      data: ndata,
+      width: idata.width,
+      height: idata.height,
+    },
+    outputpath
+  );
+};
+
+// Constructors
+
+export const makefilter = async (
+  inname: string,
+  outname: string,
+  config: net.Trainconfig
+) => {
+  const idata: Uint8Array = (await pixels(inname)).data;
+  const eodata: Uint8Array = (await pixels(outname)).data;
+
+  const length = idata.length;
+
+  let data: net.DataPair[] = [];
+
+  for (let i = 0; i < length / 4; i++) {
+    data[i] = <net.DataPair>{
+      input: [
+        idata[4 * i] / 255,
+        idata[4 * i + 1] / 255,
+        idata[4 * i + 2] / 255,
+      ],
+      eoutput: [
+        eodata[4 * i] / 255,
+        eodata[4 * i + 1] / 255,
+        eodata[4 * i + 2] / 255,
+      ],
+    };
+  }
+
+  const trainer = net.trainer(data);
+
+  let network = net.makenet(false);
+
+  return trainer.train(network, config);
+};
+
+export const loadfilter = (fname: string) => {
+  return <net.Filter>JSON.parse(fs.readFileSync(fname, "utf-8"));
+};
+
+export const savefilter = (filter: net.Filter, fname: string) => {
+  fs.writeFileSync(fname, JSON.stringify(filter));
+};

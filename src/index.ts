@@ -1,4 +1,5 @@
 import { remote } from "electron";
+// import filt from "./imagefilter";
 
 const dialog = remote.dialog;
 
@@ -25,3 +26,5 @@ export const browse = async (open: boolean, id: string) => {
   let nil = <HTMLInputElement>il;
   nil.value = path;
 };
+
+export const savefilter = (inname: string, outname: string) => {};

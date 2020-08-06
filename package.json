@@ -45,7 +45,9 @@
     }
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "image-output": "^2.4.2",
+    "image-pixels": "^2.2.2"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.52",
