@@ -66,9 +66,10 @@ export const makefilter = async (
 
   const trainer = net.trainer(data);
 
-  let network = net.makenet(false);
+  const filter = trainer.train(net.makenet(false), config);
+  const loss = trainer.test(filter, config.testlength);
 
-  return trainer.train(network, config);
+  return { filter, loss };
 };
 
 export const loadfilter = (fname: string) => {

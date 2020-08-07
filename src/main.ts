@@ -82,7 +82,7 @@ ipcMain.on("train-config", async (event, { pathsconfig, trainconfig }) => {
   // making a filter
   console.log({ pathsconfig, trainconfig });
 
-  const filter = await makefilter(
+  const { filter, loss } = await makefilter(
     pathsconfig.ipath,
     pathsconfig.opath,
     trainconfig
@@ -90,4 +90,6 @@ ipcMain.on("train-config", async (event, { pathsconfig, trainconfig }) => {
 
   // Saving filter
   savefilter(filter, pathsconfig.tpath);
+
+  createwindow("info.html", 400, 200, { loss });
 });
