@@ -3,6 +3,7 @@
 
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
+import { makefilter, savefilter } from "./imagefilter";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -78,6 +79,15 @@ ipcMain.on("paths-config", (event, { mode, pathsconfig }) => {
 
 // Recieved from savfilter
 ipcMain.on("train-config", async (event, { pathsconfig, trainconfig }) => {
-  console.log(pathsconfig);
-  console.log(trainconfig);
+  // making a filter
+  console.log({ pathsconfig, trainconfig });
+
+  const filter = await makefilter(
+    pathsconfig.ipath,
+    pathsconfig.opath,
+    trainconfig
+  );
+
+  // Saving filter
+  savefilter(filter, pathsconfig.tpath);
 });
