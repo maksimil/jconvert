@@ -10,25 +10,35 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-export const createwindow = (name: string, width: number, height: number) => {
+export const createwindow = (
+  name: string,
+  width: number,
+  height: number,
+  args: any = {}
+) => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  let win = new BrowserWindow({
     width: width,
     height: height,
+    show: false,
     webPreferences: {
       nodeIntegration: true,
     },
   });
 
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, name));
+  win.loadFile(path.join(__dirname, name));
 
-  mainWindow.setMenu(null);
+  win.setMenu(null);
+
+  win.webContents.on("did-finish-load", () => {
+    win.webContents.send("init-data", args);
+    win.show();
+  });
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  win.webContents.openDevTools();
 
-  return mainWindow;
+  return win;
 };
 
 // This method will be called when Electron has finished
@@ -56,10 +66,11 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-ipcMain.on("paths-config", (event, arg) => {
-  if (arg.mode === "save") {
+ipcMain.on("paths-config", async (event, { mode, pathsconfig }) => {
+  if (mode === "save") {
     // In save filter mode
-  } else if (arg.mode === "apply") {
+    // Opening savefilter and awaiting for it's response (train-config), then closing the window
+  } else if (mode === "apply") {
     // In apply filter mode
   }
 });

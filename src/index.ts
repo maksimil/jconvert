@@ -33,5 +33,8 @@ const datainputs = ["ipath", "opath", "tpath"].map(
 export const apply = () => {
   const [ipath, opath, tpath] = datainputs.map((e) => e.value);
 
-  ipcRenderer.send("paths-config", { ipath, opath, tpath, mode: getmode() });
+  ipcRenderer.send("paths-config", {
+    pathsconfig: { ipath, opath, tpath },
+    mode: getmode(),
+  });
 };
