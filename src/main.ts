@@ -66,11 +66,18 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-ipcMain.on("paths-config", async (event, { mode, pathsconfig }) => {
+ipcMain.on("paths-config", (event, { mode, pathsconfig }) => {
   if (mode === "save") {
     // In save filter mode
-    // Opening savefilter and awaiting for it's response (train-config), then closing the window
+    // Opening savefilter and passing pathsconfig to it
+    createwindow("savefilter.html", 800, 400, pathsconfig);
   } else if (mode === "apply") {
     // In apply filter mode
   }
+});
+
+// Recieved from savfilter
+ipcMain.on("train-config", async (event, { pathsconfig, trainconfig }) => {
+  console.log(pathsconfig);
+  console.log(trainconfig);
 });
