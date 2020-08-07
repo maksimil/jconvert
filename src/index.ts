@@ -12,6 +12,7 @@ export const browse = async (open: boolean, id: string) => {
 
   let path: string;
 
+  // TODO: add extension filters
   if (open) {
     const res = await dialog.showOpenDialog({});
     if (res.canceled) return;
