@@ -4,7 +4,9 @@ const pixels = require("image-pixels");
 const ioutput = require("image-output");
 
 export const filterdata = (filter: net.Filter, data: Uint8Array) => {
-  let output = data;
+  // .slice(0) copyies the value
+  let output = data.slice(0);
+
   const length = output.length;
   for (let i = 0; i < length / 4; i++) {
     [output[4 * i], output[4 * i + 1], output[4 * i + 2]] = net.apply(filter, [

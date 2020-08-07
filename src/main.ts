@@ -3,7 +3,7 @@
 
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
-import { makefilter, savefilter } from "./imagefilter";
+import { makefilter, savefilter, loadfilter, filterimg } from "./imagefilter";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -67,13 +67,16 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-ipcMain.on("paths-config", (event, { mode, pathsconfig }) => {
+ipcMain.on("paths-config", async (event, { mode, pathsconfig }) => {
   if (mode === "save") {
     // In save filter mode
     // Opening savefilter and passing pathsconfig to it
     createwindow("savefilter.html", 800, 400, pathsconfig);
   } else if (mode === "apply") {
     // In apply filter mode
+    const filter = loadfilter(pathsconfig.tpath);
+
+    await filterimg(filter, pathsconfig.ipath, pathsconfig.opath);
   }
 });
 
