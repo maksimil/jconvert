@@ -4,11 +4,12 @@
 
 button.mode {
   flex: 1;
-  margin-bottom: 1px;
-  display: table-cell;
 }
 
 button.mode-selected {
-  border-bottom: 1px var(--vibrant) solid;
-  margin-bottom: 0px;
+  border-bottom: 1px solid var(--db-em-color);
+}
+
+td.text {
+  width: 20%;
 }

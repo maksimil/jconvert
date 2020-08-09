@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/savefilter.css" />
     <title>savefilter</title>
   </head>
   <body>
@@ -15,23 +16,24 @@
         testlength=100-->
       <tbody>
         <tr>
-          <td>epochs:</td>
+          <td class="text">epochs</td>
           <td><input type="text" name="epochs" id="epochs" /></td>
         </tr>
         <tr>
-          <td>eta:</td>
+          <td class="text">eta</td>
           <td><input type="text" name="eta" id="eta" /></td>
         </tr>
         <tr>
-          <td>leta:</td>
+          <td class="text">leta</td>
           <td><input type="text" name="leta" id="leta" /></td>
         </tr>
         <tr>
-          <td>test length:</td>
+          <td class="text">test length</td>
           <td><input type="text" name="testlength" id="testlength" /></td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td></td>
+          <td>
             <button class="apply" onclick="apply()">apply</button>
           </td>
         </tr>

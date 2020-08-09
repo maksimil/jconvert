@@ -10,8 +10,8 @@
     <table>
       <tbody>
         <tr>
-          <td>mode:</td>
-          <td colspan="2">
+          <td class="text">mode:</td>
+          <td class="input">
             <div class="mode-container">
               <button
                 class="mode mode-selected"
@@ -27,31 +27,36 @@
           </td>
         </tr>
         <tr>
-          <td>input file:</td>
-          <td><input type="text" name="ipath" id="ipath" /></td>
-          <td><button onclick='browse(true, "ipath")'>browse</button></td>
+          <td class="text">input file</td>
+          <td class="input"><input type="text" name="ipath" id="ipath" /></td>
+          <td class="browse">
+            <button onclick='browse(true, "ipath")'>
+              browse
+            </button>
+          </td>
         </tr>
         <tr>
-          <td>output file:</td>
-          <td><input type="text" name="opath" id="opath" /></td>
-          <td>
+          <td class="text">output file</td>
+          <td class="input"><input type="text" name="opath" id="opath" /></td>
+          <td class="browse">
             <button onclick='browse(getmode() === "save", "opath")'>
               browse
             </button>
           </td>
         </tr>
         <tr>
-          <td>transform file:</td>
-          <td><input type="text" name="tpath" id="tpath" /></td>
-          <td>
+          <td class="text">transform file</td>
+          <td class="input"><input type="text" name="tpath" id="tpath" /></td>
+          <td class="browse">
             <button onclick='browse(getmode() === "apply","tpath")'>
               browse
             </button>
           </td>
         </tr>
         <tr>
-          <td colspan="3" class="apply" onclick="apply()">
-            <button>apply</button>
+          <td colspan="2"></td>
+          <td class="apply">
+            <button onclick="apply()">apply</button>
           </td>
         </tr>
       </tbody>
