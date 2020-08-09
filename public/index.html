@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>jconvert</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/index.css" />
   </head>
   <body>
     <table>
@@ -11,10 +12,18 @@
         <tr>
           <td>mode:</td>
           <td colspan="2">
-            <select name="mode" id="mode">
-              <option value="save">Load filter from images</option>
-              <option value="apply">Apply filter to image</option>
-            </select>
+            <div class="mode-container">
+              <button
+                class="mode mode-selected"
+                id="save"
+                onclick='setmode("save")'
+              >
+                load
+              </button>
+              <button class="mode" id="apply" onclick='setmode("apply")'>
+                apply
+              </button>
+            </div>
           </td>
         </tr>
         <tr>
@@ -49,6 +58,6 @@
     </table>
   </body>
   <script>
-    const { browse, getmode, apply } = require("./index.js");
+    const { browse, getmode, apply, setmode } = require("./index.js");
   </script>
 </html>

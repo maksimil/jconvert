@@ -2,10 +2,6 @@ import { remote, ipcRenderer } from "electron";
 
 const dialog = remote.dialog;
 
-const modeinput = <HTMLSelectElement>document.getElementById("mode");
-// apply, save
-export const getmode = () => modeinput.value;
-
 export const browse = async (open: boolean, id: string) => {
   let il = document.getElementById(id);
   if (!il) return;
@@ -37,5 +33,32 @@ export const apply = () => {
   ipcRenderer.send("paths-config", {
     pathsconfig: { ipath, opath, tpath },
     mode: getmode(),
+  });
+};
+
+// Select mode
+export const getmode = () => {
+  return mode;
+};
+
+let mode = "save";
+
+const modes = ["save", "apply"];
+
+const options: {
+  [key: string]: HTMLButtonElement;
+} = {
+  save: <HTMLButtonElement>document.getElementById("save"),
+  apply: <HTMLButtonElement>document.getElementById("apply"),
+};
+
+export const setmode = (_mode: string) => {
+  mode = _mode;
+  modes.forEach((k) => {
+    if (k === mode) {
+      options[k].classList.add("mode-selected");
+    } else {
+      options[k].classList.remove("mode-selected");
+    }
   });
 };
