@@ -4,6 +4,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { makefilter, savefilter, loadfilter, filterimg } from "./imagefilter";
+import { gbth } from "./mom";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -25,6 +26,7 @@ export const createwindow = (
     show: false,
     resizable: false,
     webPreferences: {
+      enableRemoteModule: true,
       nodeIntegration: true,
     },
   });
@@ -87,16 +89,24 @@ ipcMain.on("paths-config", async (event, { mode, pathsconfig }) => {
 // Recieved from savfilter
 ipcMain.on("train-config", async (event, { pathsconfig, trainconfig }) => {
   // making a filter
-  console.log({ pathsconfig, trainconfig });
+  // console.log({ pathsconfig, trainconfig });
 
-  const { filter, loss } = await makefilter(
-    pathsconfig.ipath,
-    pathsconfig.opath,
-    trainconfig
-  );
+  const datastring = JSON.stringify({
+    pathsconfig,
+    trainconfig,
+  });
 
-  // Saving filter
-  savefilter(filter, pathsconfig.tpath);
+  const child = gbth("public/loadprocess.js", datastring, (c) => {
+    console.log(`"${c}"`);
+    try {
+      const { loss } = JSON.parse(c);
 
-  createwindow("info.html", 400, 200, { loss });
+      // console.log(loss);
+
+      child.kill();
+      createwindow("info.html", 400, 200, { title: "Load finished", loss });
+    } catch (e) {
+      // console.log(e);
+    }
+  });
 });
