@@ -9,11 +9,15 @@ export const filterdata = (filter: net.Filter, data: Uint8Array) => {
 
   const length = output.length;
   for (let i = 0; i < length / 4; i++) {
-    [output[4 * i], output[4 * i + 1], output[4 * i + 2]] = net.apply(filter, [
-      data[4 * i],
-      data[4 * i + 1],
-      data[4 * i + 2],
+    const v = net.apply(filter, [
+      data[4 * i] / 255,
+      data[4 * i + 1] / 255,
+      data[4 * i + 2] / 255,
     ]);
+
+    for (let j = 0; j < 3; j++) {
+      output[4 * i + j] = v[j] * 255;
+    }
   }
   return output;
 };

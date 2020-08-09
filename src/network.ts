@@ -66,7 +66,16 @@ export const makenet = (rand: boolean) => {
 export const apply = (network: Filter, color: Color) => {
   let out: Color = [0, 0, 0];
   for (let i = 0; i < 3; i++) {
-    out[i] = dot(color, network.matrix[i]) + network.bias[i];
+    const v = dot(color, network.matrix[i]) + network.bias[i];
+    if (v < 0) {
+      out[i] = 0;
+      continue;
+    }
+    if (v > 1) {
+      out[i] = 1;
+      continue;
+    }
+    out[i] = v;
   }
   return out;
 };
