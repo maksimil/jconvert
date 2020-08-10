@@ -3,7 +3,7 @@
 
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
-import { makefilter, savefilter, loadfilter, filterimg } from "./imagefilter";
+import { loadfilter, filterimg } from "./imagefilter";
 import { gbth } from "./mom";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -97,7 +97,7 @@ ipcMain.on("train-config", async (event, { pathsconfig, trainconfig }) => {
   });
 
   const child = gbth("public/loadprocess.js", datastring, (c) => {
-    console.log(`"${c}"`);
+    // console.log(`"${c}"`);
     try {
       const { loss } = JSON.parse(c);
 

@@ -12,6 +12,11 @@ const paraminputs = [
   document.getElementById("testlength"),
 ].map((e) => <HTMLInputElement>e);
 
+paraminputs[0].value = "1000";
+paraminputs[1].value = "10";
+paraminputs[2].value = "10";
+paraminputs[3].value = "100";
+
 export const apply = () => {
   const [epochs, eta, leta, testlength] = paraminputs.map((e) => e.value);
   const trainconfig: { [key: string]: number } = {
