@@ -1,6 +1,6 @@
 # jconvert
 
-This project is using neural networks and training to copy linear image filters. Files _testdata/test_1.jpg_ and _testdata/test_1_out.jpg_ are results of such a filter.
+This project is using neural networks and training to copy linear image filters. Files _testdata/test_1.jpg_ and _testdata/test_1_out.jpg_ are results of such filter.
 
 ## Linear filters
 
@@ -12,4 +12,4 @@ Training is achieved via minimizing the loss function, wich is sum of squared di
 
 ## Inspiration
 
-This project is inspired by Jojo's Bzzare adventures color switch.
+This project is inspired by Jojo's color switch.
