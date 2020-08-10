@@ -19,12 +19,12 @@ export const createwindow = (
   args: any = {}
 ) => {
   // Create the browser window.
-  // TODO: Style the titlebars
   let win = new BrowserWindow({
     width: width,
     height: height,
     show: false,
     resizable: false,
+    icon: path.join(__dirname, "../icons/logo.ico"),
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
