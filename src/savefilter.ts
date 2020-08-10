@@ -27,16 +27,31 @@ export const apply = () => {
   };
 
   // NaN check
-  let invalid: string | boolean = false;
+  let invalid: number[] = [];
+  let j = 0;
   Object.keys(trainconfig).forEach((k) => {
     if (!trainconfig[k]) {
-      invalid = k;
+      invalid.push(j);
     }
+    j++;
   });
 
-  if (invalid) {
-    // TODO: put red on invalud fields
-    console.log(`${invalid} is invalid`);
+  if (invalid.length !== 0) {
+    // console.log(`${invalid} are invalid`);
+    for (let i = 0; i < paraminputs.length; i++) {
+      let inv = false;
+      for (let k = 0; k < invalid.length; k++) {
+        if (invalid[k] === i) {
+          inv = true;
+          break;
+        }
+      }
+      if (inv) {
+        paraminputs[i].classList.add("invalid");
+      } else {
+        paraminputs[i].classList.remove("invalid");
+      }
+    }
     return;
   }
   ipcRenderer.send("train-config", {

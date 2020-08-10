@@ -50,7 +50,7 @@ export const createwindow = (
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-  createwindow("index.html", 600, 200);
+  createwindow("index.html", 600, 180);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -66,7 +66,7 @@ app.on("activate", () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createwindow("index.html", 600, 200);
+    createwindow("index.html", 600, 180);
   }
 });
 
@@ -77,7 +77,7 @@ ipcMain.on("paths-config", async (event, { mode, pathsconfig }) => {
   if (mode === "save") {
     // In save filter mode
     // Opening savefilter and passing pathsconfig to it
-    createwindow("savefilter.html", 300, 200, pathsconfig);
+    createwindow("savefilter.html", 300, 180, pathsconfig);
   } else if (mode === "apply") {
     // In apply filter mode
     const filter = loadfilter(pathsconfig.tpath);
