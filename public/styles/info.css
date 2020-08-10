@@ -2,3 +2,8 @@ td.title {
   text-align: center;
   padding-bottom: 10px;
 }
+
+td {
+  padding-bottom: 5px;
+  padding-right: 20px;
+}

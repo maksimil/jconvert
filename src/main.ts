@@ -104,7 +104,16 @@ ipcMain.on("train-config", async (event, { pathsconfig, trainconfig }) => {
       // console.log(loss);
 
       child.kill();
-      createwindow("info.html", 400, 200, { title: "Load finished", loss });
+      createwindow("info.html", 600, 250, {
+        title: "Load finished",
+        twidth: 2,
+        lines: [
+          ["input file", pathsconfig.ipath],
+          ["output file", pathsconfig.opath],
+          ["transform file", pathsconfig.tpath],
+          ["loss", `${loss}`],
+        ],
+      });
     } catch (e) {
       // console.log(e);
     }
