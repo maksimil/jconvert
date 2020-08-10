@@ -111,7 +111,7 @@ ipcMain.on("train-config", async (event, { pathsconfig, trainconfig }) => {
           ["input file", pathsconfig.ipath],
           ["output file", pathsconfig.opath],
           ["transform file", pathsconfig.tpath],
-          ["loss", `${loss}`],
+          ["deviation", `${Math.sqrt(65025 * loss)}`],
         ],
       });
     } catch (e) {
