@@ -24,7 +24,7 @@ export const createwindow = (
     height: height,
     show: false,
     resizable: false,
-    icon: path.join(__dirname, "../icons/logo.ico"),
+    icon: path.join(__dirname, "../icons/icon.ico"),
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
@@ -41,7 +41,7 @@ export const createwindow = (
   });
 
   // Open the DevTools.
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   return win;
 };
